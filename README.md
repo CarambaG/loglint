@@ -1,4 +1,4 @@
-# loglint (slog/zap)
+# loglint (log/slog/zap)
 `loglint` - это кастомный линтер для Go, интегрируемый в golangci-lint. Он проверяет лог-записи библиотек `slog` и `zap` на соблюдение корпоративных правил: стиль сообщений, язык, отсутствие спецсимволов и чувствительных данных.
 
 ## Способ интеграции `loglint` c `golangci-lint`
@@ -18,53 +18,53 @@ linter.NewConfig(loglint.New()).
 **1. Лог-сообщения должны начинаться со строчной буквы**
 ❌ Неправильно
 ```go
-slog.Info("Starting server on port 8080")
+log.Info("Starting server on port 8080")
 slog.Error("Failed to connect to database")
 ```
 
 ✅ Правильно
 ```go
-slog.Info("starting server on port 8080")
+log.Info("starting server on port 8080")
 slog.Error("failed to connect to database")
 ```
 **2. Лог-сообщения должны быть только на английском языке**
 ❌ Неправильно
 ```go
-slog.Info("запуск сервера")
+log.Info("запуск сервера")
 slog.Error("ошибка подключения к базе данных")
 ```
 
 ✅ Правильно
 ```go
-slog.Info("starting server")
+log.Info("starting server")
 slog.Error("failed to connect to database")
 ```
 
 **3. Лог-сообщения не должны содержать спецсимволы или эмодзи**
 ❌ Неправильно
 ```go
-slog.Info("server started! 🎉🚀")
+log.Info("server started! 🎉🚀")
 slog.Error("connection failed!!!")
 slog.Warn("warning: something went wrong...")
 ```
 
 ✅ Правильно
 ```go
-slog.Info("server started")
+log.Info("server started")
 slog.Error("connection failed")
 slog.Warn("something went wrong")
 ```
 **4. Лог-сообщения не должны содержать потенциально чувствительные данные**
 ❌ Неправильно
 ```go
-slog.Info("user password: " + password)
+log.Info("user password: " + password)
 slog.Debug("api_key=" + apiKey)
 slog.Info("token: " + token)
 ```
 
 ✅ Правильно
 ```go
-slog.Info("user authenticated successfully")
+log.Info("user authenticated successfully")
 slog.Debug("api request completed")
 slog.Info("token validated")
 ```
