@@ -63,6 +63,24 @@ func extractLogMessage(call *ast.CallExpr) string {
 	return msg
 }
 
+func isLogCall(pass *analysis.Pass, call *ast.CallExpr) bool {
+	selector, ok := call.Fun.(*ast.SelectorExpr)
+	if !ok {
+		return false
+	}
+
+	obj := pass.TypesInfo.Uses[selector.Sel]
+	if obj == nil {
+		return false
+	}
+
+	if obj.Pkg() == nil {
+		return false
+	}
+
+	return obj.Pkg().Path() == "log"
+}
+
 func isSlogCall(pass *analysis.Pass, call *ast.CallExpr) bool {
 	selector, ok := call.Fun.(*ast.SelectorExpr)
 	if !ok {
@@ -96,5 +114,5 @@ func isZapCall(pass *analysis.Pass, call *ast.CallExpr) bool {
 }
 
 func isSupportedLogger(pass *analysis.Pass, call *ast.CallExpr) bool {
-	return isSlogCall(pass, call) || isZapCall(pass, call)
+	return isSlogCall(pass, call) || isZapCall(pass, call) || isLogCall(pass, call)
 }
