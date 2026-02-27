@@ -16,6 +16,7 @@ linter.NewConfig(loglint.New()).
 `loglint` проверяет все лог-записи на соответствие следующим правилам:
 
 **1. Лог-сообщения должны начинаться со строчной буквы**
+
 ❌ Неправильно
 ```go
 log.Info("Starting server on port 8080")
@@ -28,6 +29,7 @@ log.Info("starting server on port 8080")
 slog.Error("failed to connect to database")
 ```
 **2. Лог-сообщения должны быть только на английском языке**
+
 ❌ Неправильно
 ```go
 log.Info("запуск сервера")
@@ -41,6 +43,7 @@ slog.Error("failed to connect to database")
 ```
 
 **3. Лог-сообщения не должны содержать спецсимволы или эмодзи**
+
 ❌ Неправильно
 ```go
 log.Info("server started! 🎉🚀")
@@ -55,6 +58,7 @@ slog.Error("connection failed")
 slog.Warn("something went wrong")
 ```
 **4. Лог-сообщения не должны содержать потенциально чувствительные данные**
+
 ❌ Неправильно
 ```go
 log.Info("user password: " + password)
