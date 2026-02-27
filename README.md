@@ -5,7 +5,26 @@
 1. Скопируйте исходный репозиторий `golangci-lint`
 2. Создайте папку `loglint` в `golangci-lint/pkg/golinters`
 3. Скопируйте папку `analyzer` из `loglint` в `golangci-lint/pkg/golinters/loglint/`
-4. Добавить в файл `golangci-lint/pkg/lint/lintersdb/builder_linter.go` недостающий код в `[]*linter.Config:`
+4. Добавить в `golangci-lint/pkg/golinters/loglint/` `файл loglint.go` с кодом:
+```go
+package loglint
+
+import (
+	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
+	"github.com/golangci/golangci-lint/v2/pkg/golinters/loglint/analyzer"
+	"golang.org/x/tools/go/analysis"
+)
+
+func New() *goanalysis.Linter {
+	return goanalysis.
+		NewLinter("loglint", "my desc", []*analysis.Analyzer{
+			analyzer.Analyzer,
+		}, nil).
+		WithLoadMode(goanalysis.LoadModeSyntax)
+}
+
+```
+5. Добавить в файл `golangci-lint/pkg/lint/lintersdb/builder_linter.go` недостающий код в `[]*linter.Config:`
 ```go
 linter.NewConfig(loglint.New()).
   WithLoadForGoAnalysis(),
