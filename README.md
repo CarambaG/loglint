@@ -18,53 +18,53 @@ linter.NewConfig(loglint.New()).
 **1. Лог-сообщения должны начинаться со строчной буквы**
 ❌ Неправильно
 ```go
-log.Info("Starting server on port 8080")
+slog.Info("Starting server on port 8080")
 slog.Error("Failed to connect to database")
 ```
 
 ✅ Правильно
 ```go
-log.Info("starting server on port 8080")
+slog.Info("starting server on port 8080")
 slog.Error("failed to connect to database")
 ```
 **2. Лог-сообщения должны быть только на английском языке**
 ❌ Неправильно
 ```go
-log.Info("запуск сервера")
-log.Error("ошибка подключения к базе данных")
+slog.Info("запуск сервера")
+slog.Error("ошибка подключения к базе данных")
 ```
 
 ✅ Правильно
 ```go
-log.Info("starting server")
-log.Error("failed to connect to database")
+slog.Info("starting server")
+slog.Error("failed to connect to database")
 ```
 
 **3. Лог-сообщения не должны содержать спецсимволы или эмодзи**
 ❌ Неправильно
 ```go
-log.Info("server started! 🎉🚀")
-log.Error("connection failed!!!")
-log.Warn("warning: something went wrong...")
+slog.Info("server started! 🎉🚀")
+slog.Error("connection failed!!!")
+slog.Warn("warning: something went wrong...")
 ```
 
 ✅ Правильно
 ```go
-log.Info("server started")
-log.Error("connection failed")
-log.Warn("something went wrong")
+slog.Info("server started")
+slog.Error("connection failed")
+slog.Warn("something went wrong")
 ```
 **4. Лог-сообщения не должны содержать потенциально чувствительные данные**
 ❌ Неправильно
 ```go
-log.Info("user password: " + password)
-log.Debug("api_key=" + apiKey)
-log.Info("token: " + token)
+slog.Info("user password: " + password)
+slog.Debug("api_key=" + apiKey)
+slog.Info("token: " + token)
 ```
 
 ✅ Правильно
 ```go
-log.Info("user authenticated successfully")
-log.Debug("api request completed")
-log.Info("token validated")
+slog.Info("user authenticated successfully")
+slog.Debug("api request completed")
+slog.Info("token validated")
 ```
